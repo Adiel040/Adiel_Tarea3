@@ -6,6 +6,7 @@
 # User-specific files
 *.rsuser
 *.suo
+.vs/**
 *.user
 *.userosscache
 *.sln.docstates
@@ -260,6 +261,7 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 ServiceFabricBackup/
 *.rptproj.bak
+vs/**
 
 # SQL Server files
 *.mdf
@@ -301,7 +303,7 @@ node_modules/
 *.dsw
 *.dsp
 
-# Visual Studio 6 technical files 
+# Visual Studio 6 technical files
 *.ncb
 *.aps
 
@@ -383,6 +385,8 @@ FodyWeavers.xsd
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+bin/**
+obj/**
 
 # Local History for Visual Studio Code
 .history/

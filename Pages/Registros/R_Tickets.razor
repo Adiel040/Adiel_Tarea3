@@ -1,0 +1,106 @@
+@page "/rTickets" 
+@page "/" 
+@inject TicketsBLL TicketsBLL
+
+<EditForm Model="ticket" OnValidSubmit="@Guardar">
+	<DataAnnotationsValidator />
+	<div class="card">
+		<div class="card-header text-center">
+			<h1>Registro de Tickets</h1>
+		</div>
+
+		<div class="form-row align-items-center mx-3 my-2">
+            <div class="col-5">
+                <div class="form-group" >
+					<label for="Id" class="form-label">Ticket ID:</label>
+                    <div class="input-group">
+                        <InputNumber @bind-Value="ticket.TicketId" class="form-control col-4" />
+                        <div class="input-group-append">
+                            <button type="button" style="z-index: 0;" class="btn btn-primary input-group-text" @onclick="Buscar">
+								<span class="oi oi-magnifying-glass">Buscar</span>
+							</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+        </div>
+		<div class="form-row align-items-center mx-3 my-2">
+			<div class="col-5">
+				<label class="form-label">Fecha:</label>
+				<InputDate class="form-control" @bind-Value="ticket.Fecha" />
+			</div>
+		</div>
+
+		<div class="row g-0 mx-3 my-2">
+			<div class="col-5 me-5">
+				<label class="form-label">ClienteId:</label>
+				<InputNumber class="form-control" @bind-Value="ticket.ClienteId" />
+			</div>
+			<div class="col-5">
+				<label class="form-label col-6">SistemaId:</label>
+				<InputNumber class="form-control" @bind-Value="ticket.SistemaId" />
+			</div>
+		</div>
+			
+		<div class="row g-0 mx-3 my-2">
+			<div class="col-5 me-5">
+				<label class="form-label">PrioridadId:</label>
+				<InputNumber class="form-control" @bind-Value="ticket.PrioridadId" />
+			</div>
+			<div class="col-5">
+				<label class="form-label col-6">SolicitadoPor:</label>
+				<InputText class="form-control" @bind-Value="ticket.SolicitadoPor" />
+			</div>
+		</div>
+
+		<div class="form-row align-items-center mx-3 my-2">
+			<div class="col-5">
+				<label  class="form-label">Asunto:</label>
+				<InputText class="form-control" @bind-Value="ticket.Asunto" />
+			</div>
+		</div>
+
+		<div class="form-row align-items-center mx-3 my-2">
+			<div class="col">
+				<label class="form-label">Descripcion:</label>
+				<InputTextArea class="form-control" @bind-Value="ticket.Descripcion" />
+			</div>
+		</div>
+		
+		
+		<div class="card-footer text-center">
+			<button class="btn btn-primary mr-2" @onclick="Nuevo">Nuevo</button>
+
+			<button class="btn btn-success mr-2" type="submit">Guardar</button>
+
+			<button class="btn btn-danger" @onclick="Eliminar">Eliminar</button>
+		</div>
+	</div>
+</EditForm>
+
+@code{
+
+	public Tickets ticket {get; set;} = new Tickets();
+	void Buscar() {
+		var ticketEncontrado = TicketsBLL.Buscar(ticket.TicketId);
+		if(ticketEncontrado != null)
+		{
+			this.ticket = ticketEncontrado;
+		}
+	}
+	void Nuevo() {
+		ticket = new Tickets();
+	}
+	void Guardar() {
+		if(TicketsBLL.Guardar(ticket))
+		{
+			Nuevo();
+		}
+	}
+	void Eliminar() {
+		if(TicketsBLL.Eliminar(ticket.TicketId)){
+			Nuevo();
+		}
+	}
+}

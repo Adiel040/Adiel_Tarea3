@@ -1,0 +1,45 @@
+@page "/cTickets"
+
+@inject TicketsBLL TicketsBLL
+
+<div class="card">
+    <div class="card-header">
+        <h5>Consulta de Tickets</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead class="thead">
+                <tr class="table">
+                    <th>TicketId</th>
+                    <th>ClienteId</th>
+                    <th>SistemaId</th>
+                    <th>PrioridadId</th>
+                    <th>Asunto</th>
+                    <th>SolicitadoPor</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in lista)
+                {
+                    <tr>
+                        <td>@ticket.TicketId</td>
+                        <td>@ticket.ClienteId</td>
+                        <td>@ticket.SistemaId</td>
+                        <td>@ticket.PrioridadId</td>
+                        <td>@ticket.Asunto</td>
+                        <td>@ticket.SolicitadoPor</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code
+{
+    public List<Tickets> lista {get;set;} = new List<Tickets>();
+
+    protected override void OnInitialized() {
+        lista = TicketsBLL.ObtenerLista();
+    }
+}
